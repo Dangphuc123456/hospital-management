@@ -56,7 +56,6 @@ class UserController extends Controller
             return response()->json(['message' => 'Token đã hết hạn'], 400);
         }
 
-        // Tạo tài khoản thực
         User::create([
             'name' => $record->name,
             'email' => $record->email,
@@ -70,7 +69,6 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-        // Validate đầu vào
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -84,7 +82,7 @@ class UserController extends Controller
             ], 422);
         }
 
-        // Tìm người dùng theo email + role
+
         $user = User::where('email', $request->email)
             ->where('role_id', $request->role_id)
             ->first();

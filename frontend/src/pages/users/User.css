@@ -190,3 +190,4 @@ input:checked + .slider:before {
   overflow-y: auto;
   padding-right: 10px; /* tránh che bởi thanh cuộn */
 }
+

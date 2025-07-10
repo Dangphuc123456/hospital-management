@@ -20,7 +20,7 @@ class Prescription extends Model
         return $this->belongsTo(Doctor::class);
     }
 
-    public function prescriptionMedications()
+    public function medications()
     {
         return $this->hasMany(PrescriptionMedication::class);
     }

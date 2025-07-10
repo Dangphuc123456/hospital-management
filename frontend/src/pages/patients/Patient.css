@@ -1,9 +1,19 @@
-table, th, td {
+table,
+td {
   border: 1px solid #ddd;
   border-collapse: collapse;
   padding: 8px;
   text-align: center;
 }
+
+th {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  padding: 8px;
+  text-align: center;
+  background-color: #000080;
+}
+
 .modal {
   position: fixed;
   top: 13%;
@@ -12,55 +22,50 @@ table, th, td {
   background: white;
   padding: 20px;
   border: 1px solid #aaa;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   z-index: 999;
 }
+
 .add-button {
   margin-bottom: 12px;
   padding: 8px 16px;
-  background-color: #2c7be5;
+  background-color: #000080;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
+
 .add-button:hover {
-  background-color: #1a5fcd;
+  background-color: #000080;
 }
-.modal input {
-  display: block;
-  margin-bottom: 10px;
-  padding: 6px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+input{
+  border-radius: 5px;
+  border: 1px solid #868687;
 }
 .btn-save {
-  background-color: #28a745; /* xanh lá */
+  background-color: #095506;
   color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  margin-left: 83%;
+  margin-right: 5px;
+  padding:8px 16px;
 }
+
 .btn-save:hover {
-  background-color: #218838;
+  background-color: #29b943;
 }
 
 .btn-cancel {
-  background-color: #dc3545; /* đỏ */
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 8px;
+  background-color: #ee0b0b;
+  color: #333;
 }
+
 .btn-cancel:hover {
-  background-color: #c82333;
+  background-color: #b5b5b5;
 }
+
 .btn-detail {
-  background-color: #007BFF; /* Xanh biển */
+  background-color: #000080;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -68,23 +73,26 @@ table, th, td {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .btn-edit {
-  background-color: #FFC107; /* Vàng */
-  color: black;
+  background-color: #FFC107;
   border: none;
   padding: 5px 10px;
   margin-right: 5px;
   border-radius: 4px;
   cursor: pointer;
 }
-
-.btn-delete {
-  background-color: #DC3545; /* Đỏ */
+ .btn-delete {
+  background-color: #DC3545;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 10px;
   border-radius: 4px;
   cursor: pointer;
 }
-
+.form-row {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+label{
+  font-weight: bold;
+}

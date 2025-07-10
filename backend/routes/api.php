@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiAdmimController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -16,7 +17,8 @@ use App\Http\Controllers\PrescriptionMedicationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MedicalRecordController;
-
+use App\Models\Doctor;
+use Illuminate\Support\Facades\Auth;
 Route::apiResources([
     'roles' => RoleController::class,
     'users' => UserController::class,
@@ -34,8 +36,17 @@ Route::apiResources([
     'medical-records' => MedicalRecordController::class,
 ]);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/doctors/me', function () {
+    $doctor = Doctor::with('user')->where('user_id', Auth::id())->first();
+
+    if (!$doctor) {
+        return response()->json(['message' => 'Không tìm thấy bác sĩ'], 404);
+    }
+
+    return response()->json($doctor);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/medical-records', [MedicalRecordController::class, 'store']);
 });
 
 Route::get('/roles', [RoleController::class, 'index']);
@@ -56,5 +67,10 @@ Route::prefix('patients')->group(function () {
 });
 Route::get('/patients/{id}/details', [PatientController::class, 'showWithMedicalRecords']);
 Route::get('/doctors', [DoctorController::class, 'index']);
-Route::get('/appointments/by-patient/{patientId}', [AppointmentController::class, 'getByPatient']);
+Route::get('/medical-records/by-patient/{patientId}', [MedicalRecordController::class, 'getByPatient']);
 Route::apiResource('medical-records', MedicalRecordController::class);
+Route::get('/medical-records/{id}/medications', [MedicalRecordController::class, 'getMedications']);
+Route::get('/medications', [MedicationController::class, 'index']);
+Route::apiResource('doctors',DoctorController::class);
+
+Route::resource('admin',ApiAdmimController::class);

@@ -10,7 +10,7 @@
           <th>Giới tính</th>
           <th>Ngày sinh</th>
           <th>SĐT</th>
-          <th>Hành động</th>
+          <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -21,9 +21,9 @@
           <td>{{ patient.date_of_birth }}</td>
           <td>{{ patient.phone }}</td>
           <td>
-            <button class="btn-detail" @click="goToDetailPage(patient.id)">Chi tiết</button>
-            <button class="btn-edit" @click="openEditModal(patient)">Sửa</button>
-            <button class="btn-delete" @click="openDeleteModal(patient)">Xóa</button>
+            <button class="btn-detail" @click="goToDetailPage(patient.id)"><i class="fa fa-eye"></i></button>
+            <button class="btn-edit" @click="openEditModal(patient)"><i class="fa fa-edit"></i></button>
+            <button class="btn-delete" @click="openDeleteModal(patient)"><i class="fa fa-trash"></i></button>
           </td>
         </tr>
       </tbody>
@@ -41,34 +41,86 @@
     <!-- Modal Thêm -->
     <div v-if="showAddModal" class="modal">
       <h3>Thêm bệnh nhân</h3>
-      <input v-model="newPatient.name" placeholder="Họ tên" />
-      <select v-model="newPatient.gender">
-        <option disabled value="">-- Chọn giới tính --</option>
-        <option value="male">Nam</option>
-        <option value="female">Nữ</option>
-        <option value="other">Khác</option>
-      </select>
-      <input type="date" v-model="newPatient.date_of_birth" />
-      <input v-model="newPatient.blood_type" placeholder="Nhóm máu" />
-      <input v-model="newPatient.phone" placeholder="SĐT" />
-      <input v-model="newPatient.address" placeholder="Địa chỉ" />
-      <input v-model="newPatient.emergency_contact_name" placeholder="Tên người liên hệ" />
-      <input v-model="newPatient.emergency_contact_phone" placeholder="SĐT khẩn cấp" />
+      <div class="form-row">
+        <div class="form-group half">
+          <label>Họ tên</label>
+          <input v-model="editForm.name" placeholder="Họ tên" />
+        </div>
+        <div class="form-group half">
+          <label>Địa chỉ</label>
+          <input v-model="editForm.address" placeholder="Địa chỉ" />
+        </div>
+      </div>
+          <div class="form-row">
+        <div class="form-group half">
+          <label>Giới tính</label>
+          <select v-model="editForm.gender">
+            <option disabled value="">-- Chọn giới tính --</option>
+            <option value="male">Nam</option>
+            <option value="female">Nữ</option>
+            <option value="other">Khác</option>
+          </select>
+        </div>
+        <div class="form-group half">
+          <label>Nhóm máu</label>
+          <select v-model="editForm.blood_type">
+            <option disabled value="">-- Chọn nhóm máu --</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="AB">AB</option>
+            <option value="O">O</option>
+          </select>
+        </div>
+      </div>
+          <div class="form-row">
+        <div class="form-group half">
+          <label>Ngày sinh</label>
+          <input type="date" v-model="editForm.date_of_birth" />
+        </div>
+        <div class="form-group half">
+          <label>Số điện thoại</label>
+          <input v-model="editForm.phone" placeholder="SĐT" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group half">
+          <label>Người liên hệ khẩn</label>
+          <input v-model="editForm.emergency_contact_name" placeholder="Tên người liên hệ" />
+        </div>
+        <div class="form-group half">
+          <label>SĐT người nhà</label>
+          <input v-model="editForm.emergency_contact_phone" placeholder="SĐT khẩn cấp" />
+        </div>
+      </div>
       <button class="btn-save" @click="submitAdd">Lưu</button>
       <button class="btn-cancel" @click="showAddModal = false">Hủy</button>
     </div>
 
     <!-- Modal Sửa -->
     <div v-if="showEditModal" class="modal">
-      <h3>Sửa thông tin bệnh nhân</h3>
+  <h3>Thông tin bệnh nhân</h3>
+  <div class="form-row">
+    <div class="form-group half">
+      <label>Họ tên</label>
       <input v-model="editForm.name" placeholder="Họ tên" />
+    </div>
+    <div class="form-group half">
+      <label>Địa chỉ</label>
+      <input v-model="editForm.address" placeholder="Địa chỉ" />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group half">
+      <label>Giới tính</label>
       <select v-model="editForm.gender">
         <option disabled value="">-- Chọn giới tính --</option>
         <option value="male">Nam</option>
         <option value="female">Nữ</option>
         <option value="other">Khác</option>
       </select>
-      <input type="date" v-model="editForm.date_of_birth" />
+    </div>
+    <div class="form-group half">
+      <label>Nhóm máu</label>
       <select v-model="editForm.blood_type">
         <option disabled value="">-- Chọn nhóm máu --</option>
         <option value="A">A</option>
@@ -76,20 +128,71 @@
         <option value="AB">AB</option>
         <option value="O">O</option>
       </select>
-      <input v-model="editForm.phone" placeholder="SĐT" />
-      <input v-model="editForm.address" placeholder="Địa chỉ" />
-      <input v-model="editForm.emergency_contact_name" placeholder="Tên người liên hệ" />
-      <input v-model="editForm.emergency_contact_phone" placeholder="SĐT khẩn cấp" />
-      <button class="btn-save" @click="saveEdit">Lưu</button>
-      <button class="btn-cancel" @click="showEditModal = false">Hủy</button>
     </div>
+  </div>
 
+  <div class="form-row">
+    <div class="form-group half">
+      <label>Ngày sinh</label>
+      <input type="date" v-model="editForm.date_of_birth" />
+    </div>
+    <div class="form-group half">
+      <label>Số điện thoại</label>
+      <input v-model="editForm.phone" placeholder="SĐT" />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group half">
+      <label>Người liên hệ khẩn</label>
+      <input v-model="editForm.emergency_contact_name" placeholder="Tên người liên hệ" />
+    </div>
+    <div class="form-group half">
+      <label>SĐT người nhà</label>
+      <input v-model="editForm.emergency_contact_phone" placeholder="SĐT khẩn cấp" />
+    </div>
+  </div>
+  <div class="button-row">
+    <button class="btn-save" @click="saveEdit">Lưu</button>
+    <button class="btn-cancel" @click="showEditModal = false">Hủy</button>
+  </div>
+</div>
 
     <!-- Modal Xóa -->
     <div v-if="showDeleteModal" class="modal">
-      <p>Bạn có chắc muốn xóa bệnh nhân <strong>{{ deleteTarget.user?.name }}</strong>?</p>
-      <button @click="confirmDelete">Xác nhận xóa</button>
-      <button @click="showDeleteModal = false">Hủy</button>
+      <p>
+        Bạn có chắc muốn xóa bệnh nhân
+        <strong>{{ deleteTarget.user?.name }}</strong>?
+      </p>
+      <div style="display: flex; justify-content: center; gap: 12px; margin-top: 16px;">
+        <button
+          @click="confirmDelete"
+          style="
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+          "
+        >
+          Xác nhận xóa
+        </button>
+        <button
+          @click="showDeleteModal = false"
+          style="
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+          "
+        >
+          Hủy
+        </button>
+      </div>
     </div>
   </div>
 </template>

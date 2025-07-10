@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Medication;
 use Illuminate\Http\Request;
 
 class MedicationController extends Controller
@@ -9,9 +10,16 @@ class MedicationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = $request->input('search');
+        $medications = Medication::when($query, function ($q) use ($query) {
+            $q->where('name', 'LIKE', "%$query%");
+        })->limit(10)->get();
+
+        return response()->json([
+            'medications' => $medications
+        ]);
     }
 
     /**

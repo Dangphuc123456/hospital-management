@@ -1,0 +1,60 @@
+
+.form-group {
+  margin-bottom: 15px; 
+  display: flex;
+  flex-direction: column;
+}
+
+
+.form-group label {
+  font-weight: bold; 
+  margin-bottom: 5px; 
+  font-size: 14px;
+  color: #333;
+}
+
+
+.form-group input,
+.form-group textarea {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #007BFF; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none; 
+}
+
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+.btn-cancel{
+background-color: #59595b; 
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+ margin-left: 5px;
+}
+.btn-update{
+background-color: #008009; 
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+   margin-left: 83%;
+}

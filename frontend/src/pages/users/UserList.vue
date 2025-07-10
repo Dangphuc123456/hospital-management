@@ -20,8 +20,8 @@
             <td>{{ user.email }}</td>
             <td>{{ user.role?.name }}</td>
             <td class="actions">
-              <button class="edit" @click="openEditModal(user)">Sửa</button>
-              <button class="delete" @click="openDeleteModal(user)">Xóa</button>
+              <button style="color: black;background-color: #FFC107;" @click="openEditModal(user)"><i class="fa fa-edit"></i></button>
+              <button class="delete" @click="openDeleteModal(user)"><i class="fa fa-trash"></i></button>
             </td>
           </tr>
         </tbody>

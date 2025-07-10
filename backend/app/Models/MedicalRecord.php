@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class MedicalRecord extends Model
 {
     use HasFactory;
-     protected $fillable = [
-        'patient_id', 'doctor_id',
-        'diagnosis', 'treatment', 'file_attachment'
+    protected $fillable = [
+        'patient_id',
+        'doctor_id',
+        'diagnosis',
+        'treatment',
+        'file_attachment',
+        'prescription_id',
     ];
 
     public function patient()
@@ -26,5 +30,9 @@ class MedicalRecord extends Model
     public function appointment()
     {
         return $this->belongsTo(Appointment::class);
+    }
+    public function prescription()
+    {
+        return $this->belongsTo(Prescription::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\MedicalRecord;
 use App\Models\Patient;
 use Illuminate\Http\Request;
@@ -22,22 +23,19 @@ class PatientController extends Controller
 
     public function showWithMedicalRecords($id)
     {
-        $patient = Patient::find($id);
+        $patient = Patient::with([
+            'medicalRecords.prescription.medications.medication',
+            'medicalRecords.doctor.user'
+        ])->findOrFail($id);
 
-        if (!$patient) {
-            return response()->json(['message' => 'Không tìm thấy bệnh nhân'], 404);
-        }
-
-        $records = MedicalRecord::where('patient_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $doctor = Doctor::where('user_id', auth()->id())->with('user')->first();
 
         return response()->json([
             'patient' => $patient,
-            'records' => $records
+            'records' => $patient->medicalRecords,
+            'doctor' => $doctor,
         ]);
     }
-
     // POST /patients
     public function store(Request $request)
     {
@@ -126,5 +124,17 @@ class PatientController extends Controller
 
         $patient->delete();
         return response()->json(['message' => 'Đã xóa bệnh nhân']);
+    }
+    public function getMedications($id)
+    {
+        $record = MedicalRecord::with('medications')->find($id);
+
+        if (!$record) {
+            return response()->json(['message' => 'Không tìm thấy hồ sơ'], 404);
+        }
+
+        return response()->json([
+            'medications' => $record->medications
+        ]);
     }
 }
